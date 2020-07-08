@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+">
+    <!--配置连接点-->
+    <bean id="math" class="com.t46.ssm.service.proxy.ProxyMathImpl"/>
+    <!--配置切面对象-->
+    <bean id="myManthAspect" class="com.t46.ssm.aspect.AutoMyManthAspect1"/>
+    <!--配置代理对象-->
+    <bean id="serviceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--目标对象-->
+        <property name="target" ref="math"/>
+        <!--接口-->
+        <property name="interfaces" value="com.t46.ssm.service.proxy.ProxyMathService"/>
+        <!--切面类-->
+        <property name="interceptorNames" value="myManthAspect"/>
+        <!--以cglib代理-->
+        <!--<property name="optimize" value="true"/>-->
+    </bean>
+</beans>
